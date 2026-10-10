@@ -1,0 +1,54 @@
+@model ASPCoreFirstApp.Models.Movie
+@{
+    ViewData["Title"] = "Détails du Film";
+}
+
+@* Q7 — Détails : image à gauche, informations alignées à droite *@
+<style>
+    .details-wrapper {
+        max-width: 700px;
+        margin: 30px auto;
+    }
+
+    .details-content {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .details-image {
+        width: 200px;
+        height: 280px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 8px;
+        font-size: 0.8rem;
+        color: #666;
+    }
+
+    .details-card {
+        flex: 1;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 14px 18px;
+    }
+
+    .details-card p {
+        margin: 4px 0;
+    }
+</style>
+
+<div class="details-wrapper">
+    <h4>Détails du Film</h4>
+
+    <div class="details-content">
+        <div class="details-image">@Model.Name</div>
+
+        <div class="details-card">
+            <p><strong>ID:</strong> @Model.Id</p>
+            <p><strong>Nom:</strong> @Model.Name</p>
+        </div>
+    </div>
+
+    <p class="mt-4"><a asp-action="Index">← Retour à la liste</a></p>
+</div>

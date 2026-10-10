@@ -1,0 +1,15 @@
+@* Q5 — un seul @model : le ViewModel qui contient le film ET la liste des clients *@
+@model ASPCoreFirstApp.ViewModels.MovieCustomerViewModel
+@{
+    ViewData["Title"] = "Film et clients";
+}
+
+<h2>@Model.Movie.Name</h2>
+
+<h5>Clients ayant réservé ce film :</h5>
+<ul>
+    @foreach (var customer in Model.Customers)
+    {
+        <li>@customer.Name</li>
+    }
+</ul>

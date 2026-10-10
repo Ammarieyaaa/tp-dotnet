@@ -1,0 +1,73 @@
+@model IEnumerable<ASPCoreFirstApp.Models.Movie>
+@{
+    ViewData["Title"] = "Liste des Films";
+}
+
+@* Q7 — Liste des films : tableau centré, bien espacé, lignes alternées *@
+<style>
+    .films-wrapper {
+        max-width: 700px;
+        margin: 30px auto;
+    }
+
+    .films-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .films-table th {
+        text-align: left;
+        font-size: 0.8rem;
+        padding: 10px 14px;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .films-table td {
+        padding: 14px;
+        vertical-align: middle;
+        border-bottom: 1px solid #eee;
+    }
+
+    .films-table tbody tr:nth-child(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .films-table a {
+        text-decoration: none;
+    }
+
+    .image-placeholder {
+        width: 45px;
+        height: 45px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        background-color: #fff;
+    }
+</style>
+
+<div class="films-wrapper">
+    <h4>Liste des Films</h4>
+
+    <table class="films-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>
+                        @* Lien vers /Movie/Details/{id} (routage conventionnel) *@
+                        <a asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                    </td>
+                    <td><div class="image-placeholder"></div></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
