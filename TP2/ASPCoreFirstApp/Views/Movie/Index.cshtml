@@ -1,0 +1,57 @@
+@model IEnumerable<ASPCoreFirstApp.Models.Movie>
+@{
+    ViewData["Title"] = "Liste des Films";
+    int currentPage = ViewBag.Page;
+    int totalPages = ViewBag.TotalPages;
+    int pageSize = ViewBag.PageSize;
+    string? currentSort = ViewBag.CurrentSort;
+}
+
+<h1>Liste des Films</h1>
+
+<p><a asp-action="Create" class="btn btn-primary">Ajouter un film</a></p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>
+                @* Lien de tri sur la colonne Nom *@
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.NameSort" asp-route-pageSize="@pageSize">Nom ⇅</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.GenreSort" asp-route-pageSize="@pageSize">Genre ⇅</a>
+            </th>
+            <th>Disponible</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td><a asp-action="Details" asp-route-id="@item.Id">@item.Name</a></td>
+                @* Nom du genre grâce au .Include(m => m.Genre) dans le contrôleur *@
+                <td>@item.Genre?.Name</td>
+                <td>@(item.IsAvailable ? "Oui" : "Non")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Modifier</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Détails</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@* Navigation précédent / suivant (on garde le tri courant) *@
+<nav class="d-flex align-items-center gap-3">
+    <a asp-action="Index" asp-route-page="@(currentPage - 1)" asp-route-sortOrder="@currentSort" asp-route-pageSize="@pageSize"
+       class="btn btn-outline-secondary @(currentPage <= 1 ? "disabled" : "")">← Précédent</a>
+
+    <span>Page @currentPage / @totalPages</span>
+
+    <a asp-action="Index" asp-route-page="@(currentPage + 1)" asp-route-sortOrder="@currentSort" asp-route-pageSize="@pageSize"
+       class="btn btn-outline-secondary @(currentPage >= totalPages ? "disabled" : "")">Suivant →</a>
+</nav>
