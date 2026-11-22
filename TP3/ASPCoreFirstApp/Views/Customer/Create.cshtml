@@ -1,0 +1,50 @@
+@model ASPCoreFirstApp.Models.Customer
+@{
+    ViewData["Title"] = "Ajouter un client";
+}
+
+<h1>Create</h1>
+<h4>Customer</h4>
+<hr />
+
+@* Liste de toutes les erreurs de ModelState (remplie dans la branche !IsValid du contrôleur) *@
+@if (ViewBag.Errors != null)
+{
+    <div class="text-danger">
+        <ul>
+            @foreach (string error in ViewBag.Errors)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div class="form-group mb-2">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="MembershipTypeId" class="control-label">Type d'abonnement</label>
+                <select asp-for="MembershipTypeId" class="form-control" asp-items="@ViewBag.Memberships"></select>
+                <span asp-validation-for="MembershipTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-2"><a asp-action="Index">Back to List</a></div>
+
+@* Pas de validation côté client ici, pour voir les erreurs renvoyées par le serveur (ModelState) *@

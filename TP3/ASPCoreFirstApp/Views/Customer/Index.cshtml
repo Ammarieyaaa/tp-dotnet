@@ -1,0 +1,37 @@
+@model List<ASPCoreFirstApp.ViewModels.CustomerListItemViewModel>
+@{
+    ViewData["Title"] = "Clients";
+}
+
+<h1>Clients</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Ajouter un client</a>
+    <a asp-action="Index" class="btn btn-outline-secondary">Méthode Include</a>
+    <a asp-action="IndexProjection" class="btn btn-outline-secondary">Méthode Select</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Abonnement</th>
+            <th>Remise</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.Name</td>
+                <td>@c.Email</td>
+                <td>@c.MembershipName</td>
+                <td>@c.DiscountPercent %</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h5>SQL généré — méthode : @ViewBag.Method</h5>
+<pre class="bg-light p-3 border">@ViewBag.Sql</pre>
